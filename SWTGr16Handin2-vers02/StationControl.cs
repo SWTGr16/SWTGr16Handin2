@@ -9,6 +9,7 @@ namespace SWTGr16Handin2
 {
     public class StationControl
     {
+        
         // Enum med tilstande ("states") svarende til tilstandsdiagrammet for klassen
         private enum LadeskabState
         {
@@ -19,13 +20,18 @@ namespace SWTGr16Handin2
 
         // Her mangler flere member variable
         private LadeskabState _state;
-        private IChargeControl _charger;
+        private ChargeControl _chargeControl;
         private int _oldId;
         private IDoor _door;
-
+        private IDisplay _display;
+        private IRFIDReader _reader;
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
         // Her mangler constructor
+        public StationControl()
+        {
+
+        }
 
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
         private void RfidDetected(int id)
@@ -34,10 +40,10 @@ namespace SWTGr16Handin2
             {
                 case LadeskabState.Available:
                     // Check for ladeforbindelse
-                    if (_charger.Connected)
+                    if (_chargeControl.Connected)
                     {
                         _door.LockDoor();
-                        _charger.StartCharge();
+                        _chargeControl.StartCharge();
                         _oldId = id;
                         using (var writer = File.AppendText(logFile))
                         {
@@ -62,7 +68,7 @@ namespace SWTGr16Handin2
                     // Check for correct ID
                     if (id == _oldId)
                     {
-                        _charger.StopCharge();
+                        _chargeControl.StopCharge();
                         _door.UnlockDoor();
                         using (var writer = File.AppendText(logFile))
                         {
@@ -82,5 +88,6 @@ namespace SWTGr16Handin2
         }
 
         // Her mangler de andre trigger handlere
+
     }
 }

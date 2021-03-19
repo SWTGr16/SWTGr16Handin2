@@ -6,5 +6,7 @@ namespace SWTGr16Handin2
 {
     public interface IUsbCharger
     {
+        public void StartCharging();
+        public void StopCharging();
     }
 }
