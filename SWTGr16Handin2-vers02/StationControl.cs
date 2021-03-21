@@ -28,9 +28,11 @@ namespace SWTGr16Handin2
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
         // Her mangler constructor
-        public StationControl()
+        public StationControl(IDoor door, IRFIDReader reader)
         {
-
+            _door = door;
+            _reader = reader;
+            door.EventArgDoor += HandleDoorEvent;
         }
 
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
@@ -88,6 +90,37 @@ namespace SWTGr16Handin2
         }
 
         // Her mangler de andre trigger handlere
+        private void HandleChargeControlEvent(double current) // Denne skal muligvis slettes 
+        {
+          if(current> 0 && current <=5)
+          {
+                _display.PrintFullyCharged();
+          }
+          else if(current> 5 && current<= 500)
+          {
+                _display.PrintChargingOn();
+          }
+          else if (current > 500)
+          {
+                _display.PrintRemoveDevice();
+          }
+
+        }
+
+        private void HandleDoorEvent(bool doorState)
+        {
+            if(doorState)
+            {
+                _display.PrintConnectDevice();
+            }
+            else
+            {
+                _display.PrintScanRfid();
+            }
+        }
+
+
+        
 
     }
 }

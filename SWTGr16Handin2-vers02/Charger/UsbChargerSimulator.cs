@@ -12,7 +12,7 @@ namespace SWTGr16Handin2
         private const int ChargeTimeMinutes = 20; // minutes
         private const int CurrentTickInterval = 250; // ms
 
-        public event EventHandler<CurrentEventArgs> CurrentValueEvent;
+        public event EventHandler<EventArgChargeControl> ChargeControlEvent;
 
         public double CurrentValue { get; private set; }
 
@@ -70,7 +70,7 @@ namespace SWTGr16Handin2
             _overload = overload;
         }
 
-        public void StartCharge()
+        public void StartCharging()
         {
             // Ignore if already charging
             if (!_charging)
@@ -97,7 +97,7 @@ namespace SWTGr16Handin2
             }
         }
 
-        public void StopCharge()
+        public void StopCharging()
         {
             _timer.Stop();
 
@@ -109,7 +109,7 @@ namespace SWTGr16Handin2
 
         private void OnNewCurrent()
         {
-            CurrentValueEvent?.Invoke(this, new CurrentEventArgs() {Current = this.CurrentValue});
+            ChargeControlEvent?.Invoke(this, new EventArgChargeControl() {Current = this.CurrentValue});
         }
     }
 }
