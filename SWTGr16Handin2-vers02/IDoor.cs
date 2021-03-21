@@ -1,8 +1,15 @@
-﻿namespace SWTGr16Handin2
+﻿using System;
+
+namespace SWTGr16Handin2
 {
-    internal interface IDoor
+    interface IDoor
     {
+        public event EventHandler DoorLockedEvent; //<-- ikke sikker på denne
+
+        public bool DoorLocked { get; set; }
+        
         public void LockDoor();
         public void UnlockDoor();
+
     }
 }
