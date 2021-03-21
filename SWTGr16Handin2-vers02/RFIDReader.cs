@@ -4,7 +4,19 @@ using System.Text;
 
 namespace SWTGr16Handin2_vers02
 {
-    class RFIDReader
+    public class RFIDReader : IRFIDReader
     {
+
+        public event EventHandler<EventArgReader> IdReaderEvent;
+
+        public void Read(string id)
+        {
+            OnDetectedId(new EventArgReader { ReadId = id });
+        }
+
+        protected virtual void OnDetectedId(EventArgReader e)
+        {
+            IdReaderEvent?.Invoke(this, e);
+        }
     }
 }
