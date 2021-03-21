@@ -12,13 +12,18 @@ namespace SWTGr16Handin2_vers02
 
         private bool oldDoorState; //<-- rykket fra IDoor til her fordi interface ikke kunne tage det
 
+
         public void LockDoor()
         {
-            
+            Console.WriteLine("Døren er låst");
         }
+        
+
+        //enum LadeskabState
 
         public void UnlockDoor()
         {
+            Console.WriteLine("Døren er åben");
             
         }
     }

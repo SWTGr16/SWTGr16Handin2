@@ -10,7 +10,7 @@ namespace SWTGr16Handin2
     public class StationControl
     {
         // Enum med tilstande ("states") svarende til tilstandsdiagrammet for klassen
-        private enum LadeskabState
+        public enum LadeskabState //ændret til public
         {
             Available,
             Locked,
@@ -18,7 +18,7 @@ namespace SWTGr16Handin2
         };
 
         // Her mangler flere member variable
-        private LadeskabState _state;
+        public LadeskabState _state; //ændret til public
         private IChargeControl _charger;
         private int _oldId;
         private IDoor _door;

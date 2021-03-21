@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace SWTGr16Handin2
 {
@@ -9,6 +10,7 @@ namespace SWTGr16Handin2
         public bool DoorLocked { get; set; }
         
         public void LockDoor();
+
         public void UnlockDoor();
 
     }
