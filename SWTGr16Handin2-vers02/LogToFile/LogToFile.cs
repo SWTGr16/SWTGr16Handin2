@@ -7,7 +7,7 @@ namespace SWTGr16Handin2_vers02.LogToFile
 {
     public class LogToFile : ILog
     {
-        private string _logFile;
+        private string _logFile = "ChargingCabinetLog.txt";
 
         public void DoorLocked(string id)
         {
