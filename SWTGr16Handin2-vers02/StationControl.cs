@@ -21,7 +21,7 @@ namespace SWTGr16Handin2
         // Her mangler flere member variable
         private LadeskabState _state;
         private ChargeControl _chargeControl;
-        private int _oldId;
+        private string _oldId;
         private IDoor _door;
         private IDisplay _display;
         private IRFIDReader _reader;
@@ -33,10 +33,17 @@ namespace SWTGr16Handin2
             _door = door;
             _reader = reader;
             door.EventArgDoor += HandleDoorEvent;
+            reader.EventArgReader += HandleRfidDetected;
+
+        }
+
+        private void HandleRfidDetected(object sender, EventArgReader e)
+        {
+
         }
 
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
-        private void RfidDetected(int id)
+        private void RfidDetected(string id)
         {
             switch (_state)
             {
