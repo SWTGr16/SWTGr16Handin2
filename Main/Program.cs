@@ -1,13 +1,11 @@
 ﻿    using System;
-
+    using SWTGr16Handin2;
     class Program
     {
         static void Main(string[] args)
         {
         // Assemble your system here from all the classes
-
-        //Mangler reference til library
-        //RFIDReader _rfidReader = new RFIDReader(); 
+        RFIDReader _rfidReader = new RFIDReader(); 
 
 
         bool finish = false;
