@@ -11,7 +11,7 @@ namespace SWTGr16Handin2
     {
         
         // Enum med tilstande ("states") svarende til tilstandsdiagrammet for klassen
-        private enum LadeskabState
+        public enum LadeskabState //ændret til public
         {
             Available,
             Locked,

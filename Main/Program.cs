@@ -4,9 +4,13 @@
     {
         static void Main(string[] args)
         {
-				// Assemble your system here from all the classes
+        // Assemble your system here from all the classes
 
-            bool finish = false;
+        //Mangler reference til library
+        //RFIDReader _rfidReader = new RFIDReader(); 
+
+
+        bool finish = false;
             do
             {
                 string input;
@@ -30,10 +34,8 @@
 
                     case 'R':
                         System.Console.WriteLine("Indtast RFID id: ");
-                        string idString = System.Console.ReadLine();
-
-                        int id = Convert.ToInt32(idString);
-                        rfidReader.OnRfidRead(id);
+                        string id = System.Console.ReadLine();
+                        _rfidReader.Read(id);
                         break;
 
                     default:
