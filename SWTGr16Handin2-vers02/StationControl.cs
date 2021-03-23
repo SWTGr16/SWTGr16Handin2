@@ -59,14 +59,14 @@ namespace SWTGr16Handin2
             }
         }
 
-        private void HandleRfidDetected(object sender, EventArgReader e)
+        public void HandleRfidDetected(object sender, EventArgReader e)
         {
             newId = e.ReadId;
             RfidDetected(newId);
         }
 
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
-        private void RfidDetected(string id)
+        public void RfidDetected(string id)
         {
             switch (_state)
             {
