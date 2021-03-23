@@ -5,4 +5,8 @@
     <RootNamespace>SWTGr16Handin2_vers02</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="XunitXml.TestLogger" Version="3.0.66" />
+  </ItemGroup>
+
 </Project>
