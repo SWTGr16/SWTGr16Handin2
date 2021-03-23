@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="NunitXml.TestLogger" Version="3.0.97" />
     <PackageReference Include="XunitXml.TestLogger" Version="3.0.66" />
   </ItemGroup>
 
