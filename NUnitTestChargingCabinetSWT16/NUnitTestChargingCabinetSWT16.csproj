@@ -12,4 +12,8 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SWTGr16Handin2-vers02\SWTGr16Handin2.csproj" />
+  </ItemGroup>
+
 </Project>
