@@ -5,7 +5,9 @@
         static void Main(string[] args)
         {
         // Assemble your system here from all the classes
-        RFIDReader _rfidReader = new RFIDReader(); 
+        IRFIDReader _rfidReader = new RFIDReader();
+        IDoor _door = new Door();
+        
 
 
         bool finish = false;
@@ -23,11 +25,11 @@
                         break;
 
                     case 'O':
-                        door.OnDoorOpen();
+                        _door.OpenDoor(); // Vi mangler disse to metoder i door
                         break;
 
                     case 'C':
-                        door.OnDoorClose();
+                        _door.CloseDoor(); // Vi mangler også denne 
                         break;
 
                     case 'R':

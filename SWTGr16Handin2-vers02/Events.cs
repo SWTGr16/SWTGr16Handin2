@@ -14,4 +14,10 @@ namespace SWTGr16Handin2
         public double Current { get; set; }
     }
 
+    public class EventArgDoorOpen: EventArgs // har tilføjet denne - Annesofie 
+    {
+        public bool DoorOpen { get; set; }
+    }
+
+    
 }

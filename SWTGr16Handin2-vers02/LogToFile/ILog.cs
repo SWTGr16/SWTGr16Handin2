@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SWTGr16Handin2_vers02.LogToFile
+namespace SWTGr16Handin2
 {
     public interface ILog
     {

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SWTGr16Handin2
 {
-    interface IRFIDReader
+    public interface IRFIDReader
     {
         event EventHandler<EventArgReader> IdReaderEvent;
 

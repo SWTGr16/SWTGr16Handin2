@@ -19,8 +19,6 @@
         private void HandleChargeControlEvent(object sender, EventArgChargeControl e)
         {
             current = e.Current;
-            // Her mangler at den kalder metoden HandleChargeControlEvent i StationControl. Problemet er at vi får lavet et loop og det bliver noget rod.. 
-            // Alternativt kan den her klasse kalde metoder i displayet- det har Leahs venner gjort. I det tilfælde skal hele metoden inde i StationControl slettes. 
             if (current > 0 && current <= 5)
             {
                 _display.PrintFullyCharged();

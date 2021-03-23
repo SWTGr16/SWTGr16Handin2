@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SWTGr16Handin2_vers02.Display
+namespace SWTGr16Handin2
 {
-    public class Display
+    public class Display : IDisplay
     {
         public void PrintConnectDevice()
         {

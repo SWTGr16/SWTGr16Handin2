@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace SWTGr16Handin2_vers02.LogToFile
+namespace SWTGr16Handin2
 {
     public class LogToFile : ILog
     {

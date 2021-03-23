@@ -20,26 +20,49 @@ namespace SWTGr16Handin2
 
         // Her mangler flere member variable
         private LadeskabState _state;
+        private bool doorState;
         private ChargeControl _chargeControl;
         private string _oldId;
         private IDoor _door;
         private IDisplay _display;
         private IRFIDReader _reader;
-        private string logFile = "logfile.txt"; // Navnet på systemets log-fil
+        private ILog _log;
+       // private string logFile = "logfile.txt"; // Navnet på systemets log-fil
+        private string newId;
 
         // Her mangler constructor
         public StationControl(IDoor door, IRFIDReader reader)
         {
             _door = door;
             _reader = reader;
-            door.EventArgDoor += HandleDoorEvent;
-            reader.EventArgReader += HandleRfidDetected;
+            _display = new Display();
+            _log = new LogToFile();
+            door.DoorLockedEvent += HandleDoorEvent;
+            reader.IdReaderEvent += HandleRfidDetected;
 
+        }
+
+        public void HandleDoorEvent(object sender, EventArgDoorOpen e)
+        {
+            doorState = e.DoorOpen;
+
+            if (doorState)
+            {
+                _display.PrintConnectDevice();
+                _state = LadeskabState.DoorOpen; // Tror den skal sættes her. Det giver ihvertfald mest mening for mig
+  
+            }
+            else
+            {
+                _display.PrintScanRfid();
+               
+            }
         }
 
         private void HandleRfidDetected(object sender, EventArgReader e)
         {
-
+            newId = e.ReadId;
+            RfidDetected(newId);
         }
 
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
@@ -54,17 +77,19 @@ namespace SWTGr16Handin2
                         _door.LockDoor();
                         _chargeControl.StartCharge();
                         _oldId = id;
-                        using (var writer = File.AppendText(logFile))
-                        {
-                            writer.WriteLine(DateTime.Now + ": Skab låst med RFID: {0}", id);
-                        }
-
-                        Console.WriteLine("Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
+                        _log.DoorLocked(id);
+                        //using (var writer = File.AppendText(logFile))
+                        //{
+                        //    writer.WriteLine(DateTime.Now + ": Skab låst med RFID: {0}", id);
+                        //}
+                        _display.PrintChargingOn(); // ved ikke om dette skal tilføjes 
+                       // Console.WriteLine("Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
                         _state = LadeskabState.Locked;
                     }
                     else
                     {
-                        Console.WriteLine("Din telefon er ikke ordentlig tilsluttet. Prøv igen.");
+                        _display.PrintConnectionError();
+                       // Console.WriteLine("Din telefon er ikke ordentlig tilsluttet. Prøv igen.");
                     }
 
                     break;
@@ -79,55 +104,26 @@ namespace SWTGr16Handin2
                     {
                         _chargeControl.StopCharge();
                         _door.UnlockDoor();
-                        using (var writer = File.AppendText(logFile))
-                        {
-                            writer.WriteLine(DateTime.Now + ": Skab låst op med RFID: {0}", id);
-                        }
-
-                        Console.WriteLine("Tag din telefon ud af skabet og luk døren");
+                        _log.DoorUnlocked(id);// dette i stedet for de næste 3 linjer måske? 
+                        //using (var writer = File.AppendText(logFile))
+                        //{
+                        //    writer.WriteLine(DateTime.Now + ": Skab låst op med RFID: {0}", id);
+                        //}
+                        _display.PrintRemoveDevice();
+                        //Console.WriteLine("Tag din telefon ud af skabet og luk døren");
                         _state = LadeskabState.Available;
                     }
                     else
                     {
-                        Console.WriteLine("Forkert RFID tag");
+                        _display.PrintRfidFail();
+                        //Console.WriteLine("Forkert RFID tag");
                     }
 
                     break;
             }
         }
 
-        // Her mangler de andre trigger handlere
-        private void HandleChargeControlEvent(double current) // Denne skal muligvis slettes 
-        {
-          if(current> 0 && current <=5)
-          {
-                _display.PrintFullyCharged();
-          }
-          else if(current> 5 && current<= 500)
-          {
-                _display.PrintChargingOn();
-          }
-          else if (current > 500)
-          {
-                _display.PrintRemoveDevice();
-          }
-
-        }
-
-        private void HandleDoorEvent(bool doorState)
-        {
-            if(doorState)
-            {
-                _display.PrintConnectDevice();
-            }
-            else
-            {
-                _display.PrintScanRfid();
-            }
-        }
-
-
         
-
+        
     }
 }
