@@ -7,13 +7,8 @@ namespace SWTGr16Handin2
 {
     public class Door : IDoor
     {
-        public event EventHandler<EventArgDoorOpen> DoorLockedEvent; //rename til DoorOpen tror jeg 
+        public event EventHandler<EventArgDoorOpen> DoorOpenEvent; //rename til DoorOpen tror jeg 
         
-       // public bool DoorLocked { get; set; }
-        public bool DoorOpen { get; set; } // Tilføjet af Annesofie
-
-        private bool oldDoorState; //<-- rykket fra IDoor til her fordi interface ikke kunne tage det
-
 
         public void LockDoor()
         {
@@ -26,14 +21,14 @@ namespace SWTGr16Handin2
 
         public void UnlockDoor()
         {  
-            Console.WriteLine("Døren er åben");
+            Console.WriteLine("Døren er låst op");
             
         }
         // Tilføjet af Annesofie-- er ikke sikker på de skal være der 
 
         protected virtual void OnDoorOpen(EventArgDoorOpen e)
         {
-            DoorLockedEvent?.Invoke(this, e);
+            DoorOpenEvent?.Invoke(this, e);
         }
 
         public void OpenDoor()
@@ -48,11 +43,8 @@ namespace SWTGr16Handin2
 
         protected virtual void OnDoorClosed(EventArgDoorOpen e)
         {
-            DoorLockedEvent?.Invoke(this, e);
+            DoorOpenEvent?.Invoke(this, e);
         }
-
-
-
         
     }
 }
