@@ -27,16 +27,19 @@ namespace SWTGr16Handin2
         private IDisplay _display;
         private IRFIDReader _reader;
         private ILog _log;
+
+        private IUsbCharger _charger;
        // private string logFile = "logfile.txt"; // Navnet på systemets log-fil
         private string newId;
 
         // Her mangler constructor
-        public StationControl(IDoor door, IRFIDReader reader)
+        public StationControl(IDoor door, IRFIDReader reader, IDisplay display, IUsbCharger charger, ILog log)
         {
             _door = door;
             _reader = reader;
-            _display = new Display();
-            _log = new LogToFile();
+            _display = display;
+            _charger = charger;
+            _log = log;
             door.DoorOpenEvent += HandleDoorEvent;
             reader.IdReaderEvent += HandleRfidDetected;
 
