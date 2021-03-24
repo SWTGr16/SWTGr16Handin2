@@ -62,7 +62,7 @@ namespace SWTGr16Handin2
 
         public void SimulateConnected(bool connected)
         {
-            Connected = connected;
+            Connected = connected; //Spørg frank: hvor sættes denne? (udover i test self)
         }
 
         public void SimulateOverload(bool overload)

@@ -7,9 +7,13 @@
         // Assemble your system here from all the classes
         IRFIDReader _rfidReader = new RFIDReader();
         IDoor _door = new Door();
+        IDisplay _display = new Display();
+        ILog _log = new LogToFile();
+        IUsbCharger _usbCharger = new UsbChargerSimulator();
+        IChargeControl _chargeControl = new ChargeControl(_usbCharger, _display);
+        StationControl _stationControl = new StationControl(_door,_rfidReader,_display,_chargeControl,_log);
+
         
-
-
         bool finish = false;
             do
             {

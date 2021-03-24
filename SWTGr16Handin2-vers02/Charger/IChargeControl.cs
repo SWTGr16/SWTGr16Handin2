@@ -6,6 +6,8 @@ namespace SWTGr16Handin2
 {
     public interface IChargeControl
     {
+        public bool Connected { get; set; }
+
         private void HandleChargeControlEvent(object sender, EventArgChargeControl e)
         {
         }

@@ -2,7 +2,7 @@
 {
     public class ChargeControl : IChargeControl
     {
-        public bool Connected { get; }
+        public bool Connected { get; set; }
         private double current;
         private IUsbCharger _usbCharger;
         private IDisplay _display;
