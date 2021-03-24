@@ -38,5 +38,21 @@ namespace NUnitTestChargingCabinetSWT16
             _uutS.HandleDoorEvent(_door, new EventArgDoorOpen{DoorOpen = true});
             _display.Received(1).PrintConnectDevice();
         }
+
+        [Test]
+        public void Test_that_PrintScanRfid_Iscalled_when_DoorOpen_equals_false()
+        {
+            _uutS.HandleDoorEvent(_door, new EventArgDoorOpen { DoorOpen = false });
+            _display.Received(1).PrintScanRfid();
+        }
+
+        [TestCase (true)]
+        [TestCase(false)]
+        public void Test_that_HandleDoorEvent_is_called(bool state)
+        {
+            _door.DoorOpenEvent += Raise.EventWith(new EventArgDoorOpen {DoorOpen = state});
+            Assert.That(_uutS.DoorState, Is.EqualTo(state));
+        }
+
     }
 }

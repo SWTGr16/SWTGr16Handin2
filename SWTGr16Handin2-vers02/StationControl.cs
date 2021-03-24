@@ -20,7 +20,7 @@ namespace SWTGr16Handin2
 
         // Her mangler flere member variable
         private LadeskabState _state;
-        private bool doorState;
+        public bool DoorState { get; set; }
         private ChargeControl _chargeControl;
         private string _oldId;
         private IDoor _door;
@@ -47,9 +47,9 @@ namespace SWTGr16Handin2
 
         public void HandleDoorEvent(object sender, EventArgDoorOpen e)
         {
-            doorState = e.DoorOpen;
+            DoorState = e.DoorOpen;
 
-            if (doorState)
+            if (DoorState)
             {
                 _display.PrintConnectDevice();
                 _state = LadeskabState.DoorOpen; // Tror den skal sættes her. Det giver ihvertfald mest mening for mig
