@@ -10,13 +10,14 @@
 
         public ChargeControl(IUsbCharger usbCharger, IDisplay display)
         {
-           
             _usbCharger = usbCharger;
             _display = display;
-            _usbCharger.ChargeControlEvent += HandleChargeControlEvent;
+            //usbCharger.ChargeControlEvent += HandleChargeControlEvent;
+            usbCharger.ChargeControlEvent += HandleChargeControlEvent;
+            display.IChargeControlEvent += HandleChargeControlEvent;
         }
 
-        private void HandleChargeControlEvent(object sender, EventArgChargeControl e)
+        public void HandleChargeControlEvent(object sender, EventArgChargeControl e)
         {
             current = e.Current;
             if (current > 0 && current <= 5)
