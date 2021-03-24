@@ -5,7 +5,7 @@ using NSubstitute;
 namespace NUnitTestChargingCabinetSWT16
 {
     [TestFixture]
-    public class TestStationControl
+    public class Tests
     {
         private IDisplay _display;
         private IDoor _door;
@@ -13,9 +13,8 @@ namespace NUnitTestChargingCabinetSWT16
         private IChargeControl _charger;
         private ILog _log;
 
-
         private StationControl _uutS;
-        //private ChargeControl _uutC;
+
 
         [SetUp]
         public void Setup()
@@ -24,11 +23,11 @@ namespace NUnitTestChargingCabinetSWT16
             _door = Substitute.For<IDoor>();
             _charger = Substitute.For<IChargeControl>();
             _log = Substitute.For<ILog>();
-
             _rfidReader = Substitute.For<IRFIDReader>();
 
             _uutS = new StationControl(_door,_rfidReader,_display,_charger,_log);
-            // _uutC = new ChargeControl();
+ 
+
         }
 
         [Test]

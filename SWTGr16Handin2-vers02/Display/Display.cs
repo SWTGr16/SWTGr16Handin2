@@ -6,9 +6,6 @@ namespace SWTGr16Handin2
 {
     public class Display : IDisplay
     {
-        public event EventHandler<EventArgChargeControl> IChargeControlEvent; // tilføjet denne, men i tvivl
-
-
         public void PrintConnectDevice()
         {
             Console.WriteLine("Tilslut mobiltelefon");

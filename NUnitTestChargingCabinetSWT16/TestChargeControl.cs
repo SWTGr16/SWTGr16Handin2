@@ -8,25 +8,19 @@ namespace NUnitTestChargingCabinetSWT16
     public class TestChargeControl
     {
         private IDisplay _display;
-        private IDoor _door;
-        private IRFIDReader _rfidReader;
-        private IChargeControl _charger;
-        private ILog _log;
-        private IUsbCharger _usbCharger; //<-- never assigned
+     
+    
+     
+        private IUsbCharger _usbCharger; 
 
         private ChargeControl _uutC;
 
         [SetUp]
         public void Setup()
         {
-            _display = Substitute.For<IDisplay>();
-            _door = Substitute.For<IDoor>();
-            _charger = Substitute.For<IChargeControl>();
-            _log = Substitute.For<ILog>();
-            _rfidReader = Substitute.For<IRFIDReader>();
-
+            _display = Substitute.For<IDisplay>();   
+            _usbCharger = Substitute.For<IUsbCharger>();
             _uutC = new ChargeControl(_usbCharger,_display);
-
         }
 
         [TestCase(4)]
@@ -34,7 +28,7 @@ namespace NUnitTestChargingCabinetSWT16
         [TestCase(1)]
         public void Test_PrintFullyCharged_isCalledWhen_current_moreThan_zero_AND_lessOrEqualTo_five(double current)
         {
-            _uutC.HandleChargeControlEvent(_charger, new EventArgChargeControl{Current = current});
+            _uutC.HandleChargeControlEvent(_usbCharger, new EventArgChargeControl{Current = current});
             _display.Received(1).PrintFullyCharged();
         }
 

@@ -12,9 +12,8 @@
         {
             _usbCharger = usbCharger;
             _display = display;
-            //usbCharger.ChargeControlEvent += HandleChargeControlEvent;
-            usbCharger.ChargeControlEvent += HandleChargeControlEvent;
-            display.IChargeControlEvent += HandleChargeControlEvent;
+            _usbCharger.ChargeControlEvent += HandleChargeControlEvent;
+         
         }
 
         public void HandleChargeControlEvent(object sender, EventArgChargeControl e)
