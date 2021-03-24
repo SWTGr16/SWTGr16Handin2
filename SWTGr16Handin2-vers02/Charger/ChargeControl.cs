@@ -3,7 +3,7 @@
     public class ChargeControl : IChargeControl
     {
         public bool Connected { get; set; }
-        private double current;
+        public double Current { get; set; }
         private IUsbCharger _usbCharger;
         private IDisplay _display;
       
@@ -18,16 +18,16 @@
 
         public void HandleChargeControlEvent(object sender, EventArgChargeControl e)
         {
-            current = e.Current;
-            if (current > 0 && current <= 5)
+            Current = e.Current;
+            if (Current > 0 && Current <= 5)
             {
                 _display.PrintFullyCharged();
             }
-            else if (current > 5 && current <= 500)
+            else if (Current > 5 && Current <= 500)
             {
                 _display.PrintChargingOn();
             }
-            else if (current > 500)
+            else if (Current > 500)
             {
                 _display.PrintRemoveDevice();
             }
@@ -37,10 +37,12 @@
         public void StartCharge()
         {
             _usbCharger.StartCharging();
+        
         }
         public void StopCharge()
         {
             _usbCharger.StopCharging();
+
         }
     }
 }
