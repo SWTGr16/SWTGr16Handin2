@@ -19,30 +19,30 @@ namespace SWTGr16Handin2
         };
 
         // Her mangler flere member variable
-        private LadeskabState _state;
+        public LadeskabState _state;
         public bool DoorState { get; set; }
-        private ChargeControl _chargeControl;
+        public string NewId { get; set; }
+        private IChargeControl _chargeControl;
         private string _oldId;
         private IDoor _door;
         private IDisplay _display;
-        private IRFIDReader _reader;
+        public IRFIDReader _reader;
         private ILog _log;
 
-        private IUsbCharger _charger;
+        //private IUsbCharger _charger; //<-- ChargeControl skal holde øje med _charger, fejl her
        // private string logFile = "logfile.txt"; // Navnet på systemets log-fil
-        private string newId;
+ 
 
         // Her mangler constructor
-        public StationControl(IDoor door, IRFIDReader reader, IDisplay display, IUsbCharger charger, ILog log)
+        public StationControl(IDoor door, IRFIDReader reader, IDisplay display, IChargeControl chargeControl, ILog log)
         {
             _door = door;
             _reader = reader;
             _display = display;
-            _charger = charger;
+            _chargeControl = chargeControl;
             _log = log;
             door.DoorOpenEvent += HandleDoorEvent;
             reader.IdReaderEvent += HandleRfidDetected;
-
         }
 
         public void HandleDoorEvent(object sender, EventArgDoorOpen e)
@@ -53,19 +53,17 @@ namespace SWTGr16Handin2
             {
                 _display.PrintConnectDevice();
                 _state = LadeskabState.DoorOpen; // Tror den skal sættes her. Det giver ihvertfald mest mening for mig
-  
             }
             else
             {
                 _display.PrintScanRfid();
-               
             }
         }
 
         public void HandleRfidDetected(object sender, EventArgReader e)
         {
-            newId = e.ReadId;
-            RfidDetected(newId);
+            NewId = e.ReadId;
+            RfidDetected(NewId);
         }
 
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen

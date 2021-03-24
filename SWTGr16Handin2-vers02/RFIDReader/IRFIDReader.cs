@@ -6,7 +6,7 @@ namespace SWTGr16Handin2
 {
     public interface IRFIDReader
     {
-        event EventHandler<EventArgReader> IdReaderEvent;
+        public event EventHandler<EventArgReader> IdReaderEvent;
 
         void Read(string id);
     }

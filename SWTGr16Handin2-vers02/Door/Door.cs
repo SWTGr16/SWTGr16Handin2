@@ -8,6 +8,7 @@ namespace SWTGr16Handin2
     public class Door : IDoor
     {
         public event EventHandler<EventArgDoorOpen> DoorOpenEvent; //rename til DoorOpen tror jeg 
+   
         
 
         public void LockDoor()

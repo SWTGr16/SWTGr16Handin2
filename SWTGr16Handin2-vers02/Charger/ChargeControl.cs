@@ -1,6 +1,6 @@
 ﻿namespace SWTGr16Handin2
 {
-    public class ChargeControl
+    public class ChargeControl : IChargeControl
     {
         public bool Connected { get; }
         private double current;

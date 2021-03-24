@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using SWTGr16Handin2;
 using NSubstitute;
+using SWTGr16Handin2_vers02;
 
 namespace NUnitTestChargingCabinetSWT16
 {
@@ -10,7 +11,7 @@ namespace NUnitTestChargingCabinetSWT16
         private IDisplay _display;
         private IDoor _door;
         private IRFIDReader _rfidReader;
-        private IUsbCharger _charger;
+        private IChargeControl _charger;
         private ILog _log;
 
 
@@ -22,7 +23,7 @@ namespace NUnitTestChargingCabinetSWT16
         {
             _display = Substitute.For<IDisplay>();
             _door = Substitute.For<IDoor>();
-            _charger = Substitute.For<IUsbCharger>();
+            _charger = Substitute.For<IChargeControl>();
             _log = Substitute.For<ILog>();
 
             _rfidReader = Substitute.For<IRFIDReader>();
@@ -54,5 +55,19 @@ namespace NUnitTestChargingCabinetSWT16
             Assert.That(_uutS.DoorState, Is.EqualTo(state));
         }
 
+        [Test]
+        public void Test_that_enum_changes_to_DoorOpen_when_DoorState_equals_true()
+        {
+            _door.DoorOpenEvent += Raise.EventWith(new EventArgDoorOpen { DoorOpen = true });
+            Assert.That(_uutS._state,Is.EqualTo(StationControl.LadeskabState.DoorOpen));
+        }
+
+        [TestCase("Ole")]
+        public void Test_that_HandleRfidDetected_is_called(string readId)
+        {
+            _rfidReader.IdReaderEvent += Raise.EventWith(new EventArgReader {ReadId = readId});
+            Assert.That(_uutS.NewId,Is.EqualTo(readId));
+        }
+        
     }
 }
