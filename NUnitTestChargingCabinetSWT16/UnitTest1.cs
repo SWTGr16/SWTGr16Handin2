@@ -1,7 +1,6 @@
 using NUnit.Framework;
 using SWTGr16Handin2;
 using NSubstitute;
-using SWTGr16Handin2_vers02;
 
 namespace NUnitTestChargingCabinetSWT16
 {
