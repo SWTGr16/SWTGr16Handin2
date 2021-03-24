@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
 using SWTGr16Handin2;
-using NSubstitute;
+
 
 namespace NUnitTestChargingCabinetSWT16
 {

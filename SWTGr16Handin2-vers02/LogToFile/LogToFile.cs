@@ -13,7 +13,7 @@ namespace SWTGr16Handin2
         {
             using (var w = File.AppendText(_logFile))
             {
-                w.WriteLine(DateTime.Now + ": Skab låst med id: {0}", id);
+                w.WriteLine(DateTime.Now + ":Skab låst med id:{0}", id);
             }
 
         }
@@ -22,7 +22,7 @@ namespace SWTGr16Handin2
         {
             using (var w = File.AppendText(_logFile))
             {
-                w.WriteLine(DateTime.Now + ": Skab låst op med id: {0}", id);
+                w.WriteLine(DateTime.Now + ":Skab låst op med id:{0}", id);
             }
         }
     }
