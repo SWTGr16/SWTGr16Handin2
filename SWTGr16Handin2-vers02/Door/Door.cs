@@ -7,8 +7,7 @@ namespace SWTGr16Handin2
 {
     public class Door : IDoor
     {
-        public event EventHandler<EventArgDoorOpen> DoorOpenEvent; //rename til DoorOpen tror jeg 
-   
+        public event EventHandler<EventArgDoorOpen> DoorOpenEvent; 
         
 
         public void LockDoor()
@@ -18,14 +17,12 @@ namespace SWTGr16Handin2
         }
         
 
-        //enum LadeskabState
-
         public void UnlockDoor()
         {  
             Console.WriteLine("Døren er låst op");
             
         }
-        // Tilføjet af Annesofie-- er ikke sikker på de skal være der 
+
 
         protected virtual void OnDoorOpen(EventArgDoorOpen e)
         {
