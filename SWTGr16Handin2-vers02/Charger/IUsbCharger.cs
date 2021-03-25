@@ -10,5 +10,9 @@ namespace SWTGr16Handin2
         event EventHandler<EventArgChargeControl> ChargeControlEvent;
         public void StartCharging();
         public void StopCharging();
+
+        public bool Connected { get; set; }
+        public double  CurrentValue { get; set; }
+
     }
 }
