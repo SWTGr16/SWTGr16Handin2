@@ -125,5 +125,14 @@ namespace NUnitTestChargingCabinetSWT16
             _display.Received(1).PrintRfidFail();
         }
 
+        [Test]
+        public void Break_when_state_is_DoorOpen()
+        {
+            _uutS._state = StationControl.LadeskabState.DoorOpen;
+            _uutS.RfidDetected("fakeId");
+        }
+
+
+
     }
 }
