@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using NSubstitute;
 using SWTGr16Handin2;
@@ -13,6 +14,7 @@ namespace NUnitTestChargingCabinetSWT16
         private IDoor _uut;
         private EventArgDoorOpen _eventArgDoorOpen;
         private int numberOfEvents;
+        public StringWriter stringWriter;
 
         [SetUp]
 
@@ -57,6 +59,34 @@ namespace NUnitTestChargingCabinetSWT16
         {
             _uut.CloseDoor();
             Assert.That(_eventArgDoorOpen.DoorOpen, Is.EqualTo(false));
+        }
+
+        [Test]
+        public void UnlockedDoorCalled_Write()
+        {
+            using (stringWriter = new StringWriter()) // Opretter stringwriter objekt. 
+            {
+                Console.SetOut(stringWriter); // Console.Setout omdirigerer udskriften, så der i stedet udskrives til vores stringwriter objekt. 
+                // Teksten der udskrives gemmes i objektet, i stedet for at blive vist på skærmen. 
+
+                _uut.UnlockDoor(); // Metoden kaldes, og generer en tekst. Teksten gemmes i stringwriter objektet. 
+            }
+
+            Assert.That(stringWriter.ToString(), Is.EqualTo("Døren er låst op\r\n")); // Her skal åbenbart tilføjes \r\n fordi vi udskriver med 
+            // Console.Writeline 
+        }
+
+        [Test]
+        public void LockDoorCalled_Write()
+        {
+            using (stringWriter = new StringWriter())
+            {
+                Console.SetOut(stringWriter);
+
+                _uut.LockDoor();
+            }
+
+            Assert.That(stringWriter.ToString(), Is.EqualTo("Døren er låst\r\n"));
         }
 
 
