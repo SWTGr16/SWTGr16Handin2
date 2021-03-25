@@ -94,10 +94,11 @@ namespace NUnitTestChargingCabinetSWT16
             Assert.That(_usbCharger.Connected,Is.EqualTo(state));
         }
 
-        [Test]
-        public void ChargeControl_Connected_gets_value_when_UsbCharger_Connected_is_called()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ChargeControl_Connected_gets_value_when_UsbCharger_Connected_is_called(bool value)
         {
-            _usbCharger.Connected = true;
+            _usbCharger.Connected = value;
             bool state = _uutC.Connected;
             Assert.That(state, Is.EqualTo(_usbCharger.Connected));
         }
