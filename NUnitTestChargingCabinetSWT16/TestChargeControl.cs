@@ -21,7 +21,7 @@ namespace NUnitTestChargingCabinetSWT16
             _display = Substitute.For<IDisplay>();   
             _usbCharger = Substitute.For<IUsbCharger>();
             _uutC = new ChargeControl(_usbCharger,_display);
-           
+            
         }
 
         [TestCase(4)]
@@ -93,6 +93,15 @@ namespace NUnitTestChargingCabinetSWT16
             _uutC.Connected = state;
             Assert.That(_usbCharger.Connected,Is.EqualTo(state));
         }
+
+        [Test]
+        public void ChargeControl_Connected_gets_value_when_UsbCharger_Connected_is_called()
+        {
+            _usbCharger.Connected = true;
+            bool state = _uutC.Connected;
+            Assert.That(state, Is.EqualTo(_usbCharger.Connected));
+        }
+
 
         [TestCase(14)]
         [TestCase(20)]
