@@ -65,6 +65,65 @@ namespace NUnitTestChargingCabinetSWT16
             _rfidReader.IdReaderEvent += Raise.EventWith(new EventArgReader {ReadId = readId});
             Assert.That(_uutS.NewId,Is.EqualTo(readId));
         }
-        
+
+        [Test]
+        public void LockDoor_StartCharge_PrintChargingOn_DoorLocked_are_called_when_chargeControl_Connected_is_true()
+        {
+            _uutS._state = StationControl.LadeskabState.Available;
+            _charger.Connected = true;
+            _uutS.RfidDetected("id");
+            _door.Received(1).LockDoor();
+            _charger.Received(1).StartCharge();
+            _display.Received(1).PrintChargingOn();
+            _log.Received(1).DoorLocked("id");
+        }
+
+        [Test]
+        public void State_is_equal_to_LadeskabsState_Locked_when_ChargeControlConnected_is_true()
+        {
+            _uutS._state = StationControl.LadeskabState.Available;
+            _charger.Connected = true;
+            _uutS.RfidDetected("id");
+            Assert.That(_uutS._state,Is.EqualTo(StationControl.LadeskabState.Locked));
+        }
+
+        [Test]
+        public void PrintConnectionError_is_called_when_ChargeControlConnected_is_false()
+        {
+            _uutS._state = StationControl.LadeskabState.Available;
+            _charger.Connected = false;
+            _uutS.RfidDetected("id");
+            _display.Received(1).PrintConnectionError();
+        }
+
+        [Test]
+        public void StopCharge_UnlockDoor_PrintRemoveDevice_are_called_when_state_is_locked()
+        {
+            _uutS._state = StationControl.LadeskabState.Available;
+            _charger.Connected = true;
+            _uutS.RfidDetected("id");
+
+            _uutS._state = StationControl.LadeskabState.Locked;
+            _uutS.RfidDetected("id");
+
+            _door.Received(1).UnlockDoor();
+            _charger.Received(1).StopCharge();
+            _display.Received(1).PrintRemoveDevice();
+            _log.Received(1).DoorUnlocked("id");
+        }
+
+        [Test]
+        public void PrintRfidFail_is_called_when_state_is_locked()
+        {
+            _uutS._state = StationControl.LadeskabState.Available;
+            _charger.Connected = true;
+            _uutS.RfidDetected("id");
+
+
+            _uutS._state = StationControl.LadeskabState.Locked;
+            _uutS.RfidDetected("fakeId");
+            _display.Received(1).PrintRfidFail();
+        }
+
     }
 }
