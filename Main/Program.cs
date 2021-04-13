@@ -1,9 +1,12 @@
 ﻿    using System;
+    using System.Threading.Channels;
     using SWTGr16Handin2;
     class Program
     {
+        
         static void Main(string[] args)
         {
+             
         // Assemble your system here from all the classes
         IRFIDReader _rfidReader = new RFIDReader();
         IDoor _door = new Door();
@@ -13,6 +16,7 @@
         IChargeControl _chargeControl = new ChargeControl(_usbCharger, _display);
         StationControl _stationControl = new StationControl(_door,_rfidReader,_display,_chargeControl,_log);
 
+        
         
         bool finish = false;
             do
@@ -29,11 +33,11 @@
                         break;
 
                     case 'O':
-                        _door.OpenDoor(); // Vi mangler disse to metoder i door
+                        _door.OpenDoor(); 
                         break;
 
                     case 'C':
-                        _door.CloseDoor(); // Vi mangler også denne 
+                        _door.CloseDoor();  
                         break;
 
                     case 'R':

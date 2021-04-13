@@ -51,12 +51,15 @@ namespace SWTGr16Handin2
 
             if (DoorState)
             {
-                _display.PrintConnectDevice();
                 _state = LadeskabState.DoorOpen; // Tror den skal sættes her. Det giver ihvertfald mest mening for mig
+                _display.PrintConnectDevice();
+                
             }
             else
             {
+                _state = LadeskabState.Available;
                 _display.PrintScanRfid();
+                
             }
         }
 
