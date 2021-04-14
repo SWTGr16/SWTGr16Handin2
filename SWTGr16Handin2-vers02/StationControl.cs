@@ -11,7 +11,7 @@ namespace SWTGr16Handin2
     {
         
         // Enum med tilstande ("states") svarende til tilstandsdiagrammet for klassen
-        public enum LadeskabState //ændret til public
+        private enum LadeskabState //ændret til public
         {
             Available,
             Locked,
@@ -19,7 +19,7 @@ namespace SWTGr16Handin2
         };
 
         // Her mangler flere member variable
-        public LadeskabState _state;
+        private LadeskabState _state;
         public bool DoorState { get; set; }
         public string NewId { get; set; }
         private IChargeControl _chargeControl;
