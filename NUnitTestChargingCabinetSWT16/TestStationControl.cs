@@ -47,32 +47,17 @@ namespace NUnitTestChargingCabinetSWT16
             _display.Received(1).PrintScanRfid();
         }
 
-        [TestCase (true)]
-        [TestCase(false)]
-        public void Test_that_HandleDoorEvent_is_called(bool state)
-        {
-            _door.DoorOpenEvent += Raise.EventWith(new EventArgDoorOpen {DoorOpen = state});
-            Assert.That(_uutS.DoorState, Is.EqualTo(state));
-        }
-
-        //[Test]
-        //public void Test_that_enum_changes_to_DoorOpen_when_DoorState_equals_true()
+        //[TestCase (true)]
+        //[TestCase(false)]
+        //public void Test_that_HandleDoorEvent_is_called(bool state)
         //{
-        //    _door.DoorOpenEvent += Raise.EventWith(new EventArgDoorOpen { DoorOpen = true });
-        //    Assert.That(_uutS._state,Is.EqualTo(StationControl.LadeskabState.DoorOpen));
+        //    _door.DoorOpenEvent += Raise.EventWith(new EventArgDoorOpen {DoorOpen = state});
+        //    Assert.That(_uutS.DoorState, Is.EqualTo(state));
         //}
-
-        [TestCase("Ole")]
-        public void Test_that_HandleRfidDetected_is_called(string readId)
-        {
-            _rfidReader.IdReaderEvent += Raise.EventWith(new EventArgReader {ReadId = readId});
-            Assert.That(_uutS.NewId,Is.EqualTo(readId));
-        }
 
         [Test]
         public void LockDoor_StartCharge_PrintChargingOn_DoorLocked_are_called_when_chargeControl_Connected_is_true()
-        {
-            
+        {          
             _door.DoorOpenEvent += Raise.EventWith(new EventArgDoorOpen { DoorOpen = false });
             _charger.Connected = true;
             _rfidReader.IdReaderEvent+= Raise.EventWith(new EventArgReader{ReadId="id" });
@@ -80,24 +65,11 @@ namespace NUnitTestChargingCabinetSWT16
             _charger.Received(1).StartCharge();
             _display.Received(1).PrintChargingOn();
             _log.Received(1).DoorLocked("id");
-
-
-       }
-
-        //[Test]
-        //public void State_is_equal_to_LadeskabsState_Locked_when_ChargeControlConnected_is_true()
-        //{
-            
-        //    _door.DoorOpenEvent += Raise.EventWith(new EventArgDoorOpen { DoorOpen = false });
-        //    _charger.Connected = true;
-        //    _uutS.RfidDetected("id");
-        //    Assert.That(_uutS._state,Is.EqualTo(StationControl.LadeskabState.Locked));
-        //}
+        }
 
         [Test]
         public void PrintConnectionError_is_called_when_ChargeControlConnected_is_false()
-        {
-            
+        { 
             _door.DoorOpenEvent += Raise.EventWith(new EventArgDoorOpen { DoorOpen = false });
             _charger.Connected = false;
             _rfidReader.IdReaderEvent += Raise.EventWith(new EventArgReader { ReadId = "id" });
@@ -119,8 +91,7 @@ namespace NUnitTestChargingCabinetSWT16
 
         [Test]
         public void PrintRfidFail_is_called_when_state_is_locked()
-        {
-            
+        {  
             _door.DoorOpenEvent += Raise.EventWith(new EventArgDoorOpen { DoorOpen = false });
             _charger.Connected = true;
             _rfidReader.IdReaderEvent += Raise.EventWith(new EventArgReader { ReadId = "id" });
@@ -130,14 +101,9 @@ namespace NUnitTestChargingCabinetSWT16
 
         [Test]
         public void Break_when_state_is_DoorOpen()
-        {
-         
+        {   
             _door.DoorOpenEvent += Raise.EventWith(new EventArgDoorOpen { DoorOpen = true });
-            _rfidReader.IdReaderEvent += Raise.EventWith(new EventArgReader { ReadId = "fakeID" });
-           
+            _rfidReader.IdReaderEvent += Raise.EventWith(new EventArgReader { ReadId = "fakeID" });      
         }
-
-
-
     }
 }
