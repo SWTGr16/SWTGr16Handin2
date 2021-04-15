@@ -47,13 +47,6 @@ namespace NUnitTestChargingCabinetSWT16
             _display.Received(1).PrintScanRfid();
         }
 
-        //[TestCase (true)]
-        //[TestCase(false)]
-        //public void Test_that_HandleDoorEvent_is_called(bool state)
-        //{
-        //    _door.DoorOpenEvent += Raise.EventWith(new EventArgDoorOpen {DoorOpen = state});
-        //    Assert.That(_uutS.DoorState, Is.EqualTo(state));
-        //}
 
         [Test]
         public void LockDoor_StartCharge_PrintChargingOn_DoorLocked_are_called_when_chargeControl_Connected_is_true()
